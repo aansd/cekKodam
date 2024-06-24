@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cek Kodam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body, html {
+          height: 100%;
+        }
+        .flex-grow {
+          flex-grow: 1;
+        }
+      </style>
+  </head>
+  <body class="flex flex-col min-h-screen bg-white shadow dark:bg-gray-800">
+    <div class=" max-w-md w-full bg-white p-10 rounded shadow-lg m-auto mt-48">
+      <h2 class="text-center text-2xl font-bold">Check Khodam</h2>
+
+      <form id="kodam-form" method="post">
+        <div class="mb-4">
+          <input
+            type="text"
+            name="nama"
+            id="nama"
+            placeholder="Masukan Nama Anda"
+            class="shadow py-2 px-3 mt-4 border rounded w-full text-gray-700 focus:outline-none"
+          />
+        </div>
+        <div class="mb-4 flex justify-content-center">
+            <button type="submit" id="submit-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline">
+                Check Khodam
+            </button>
+        </div>
+        <div id="hasil" class="text-center mb-4"></div>
+        <div class="mb-4 flex justify-content-center hidden" id="retry-container">
+            <button type="button" id="retry-button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline">
+                Check Khodam Lagi?
+            </button>
+        </div>
+      </form>
+    </div>
+<footer class="bg-white shadow dark:bg-gray-900">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex justify-center text-center">
+      <span class="text-sm text-gray-500 dark:text-gray-400">© 2024 <a href="https://www.instagram.com/gendaanmu_/" class="hover:underline" target="_blank">gendaanmu_</a>
+    </span>
+    </div>
+</footer>
+
+
+    <script>
+        const namaKhodam = [
+            "Kosong",
+            "Badak Air",
+            "Bebek Cemani",
+            "Astronot Darat",
+            "Sumanto",
+            "Botol Kecap",
+            "Pocong Bugil",
+            "Roro Jongrang",
+            "Pelepah Pisang",
+            "Kangguru Laut",
+            "Kuntil Anak Janda",
+            "Wewe Gombel",
+            "Siluman Tobrut Sebelah",
+            "Kakek Pirang"
+
+        ];
+
+        function cekKhodam() {
+            const randomIndex = Math.floor(Math.random() * namaKhodam.length);
+            const randomKhodam = namaKhodam[randomIndex];
+
+            const nama = document.getElementById('nama').value.trim();
+
+            if (nama === '') {
+                swal("Nama Masih kosong!", "Khodam Tidak Dapat Di Deteksi", "warning");
+                return;
+            }
+
+            const hasil = document.getElementById('hasil');
+            hasil.innerHTML = `<p class="text-red-800 font-bold">${randomKhodam}</p>`;
+
+            document.getElementById('nama').classList.add('hidden');
+            document.getElementById('submit-button').classList.add('hidden');
+            document.getElementById('retry-container').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('nama').classList.remove('hidden');
+            document.getElementById('submit-button').classList.remove('hidden');
+            document.getElementById('retry-container').classList.add('hidden');
+            document.getElementById('hasil').innerHTML = '';
+            document.getElementById('nama').value = '';
+        }
+
+        document.getElementById('kodam-form').addEventListener('submit', function(event){
+            event.preventDefault();
+            cekKhodam();
+        });
+
+        document.getElementById('retry-button').addEventListener('click', function() {
+            resetForm();
+        });
+    </script>
+  </body>
+</html>
